@@ -1,0 +1,131 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>News & Events ·New Heaven Secondary School</title>
+<meta name="description" content="Term dates, fixtures and recent news from New Heaven Secondary School.">
+<link rel="stylesheet" href="{% static '/css/style.css' %}">
+</head>
+<body>
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">NH</span>
+      <span class="brand-text">New Heaven<span>SECONDARY SCHOOL</span></span>
+    </a>
+    <ul class="main-nav">
+      <li><a href="{% url "index" %}">Home</a></li>
+<li><a href="{% url "about" %}">About Us</a></li>
+<li><a href="{% url "academics" %}">Academics</a></li>
+<li><a href="{% url "admissions" %}">Admissions</a></li>
+<li><a href="{% url "events" %}" aria-current="page">News & Events</a></li>
+<li><a href="{% url "contact" %}">Contact</a></li>
+
+
+    </ul>
+    <a class="btn nav-cta" href="{% url "apply" %}">Apply now</a>
+  </div>
+</header>
+
+
+<section class="page-head">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / News &amp; events</div>
+    <span class="kicker">What's on</span>
+    <h1>Term dates, fixtures and announcements</h1>
+    <p>The termly newsletter is written by the Press Club; term dates and exam windows are set by the academic office each August.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="kicker">Upcoming</span>
+        <h2>This term's calendar</h2>
+      </div>
+    </div>
+    <table>
+      <thead><tr><th>Date</th><th>Event</th><th>Where</th></tr></thead>
+      <tbody>
+        <tr><td>18 Sept 2026</td><td>Term 1 begins</td><td>Whole school</td></tr>
+        <tr><td>3 Oct 2026</td><td>Admissions open for 2026 intake</td><td>Admissions office</td></tr>
+        <tr><td>21 Oct 2026</td><td>Inter-house football, Round 1</td><td>Main pitch</td></tr>
+        <tr><td>14 Nov 2026</td><td>Grade 9 science fair</td><td>Main hall</td></tr>
+        <tr><td>28 Nov 2026</td><td>Parent-teacher conferences</td><td>Academic block</td></tr>
+        <tr><td>12 Dec 2026</td><td>Drama &amp; Music showcase</td><td>Main hall</td></tr>
+        <tr><td>18 Dec 2026</td><td>Term 1 ends</td><td>Whole school</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section-alt">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="kicker">Recent news</span>
+        <h2>From the Press Club</h2>
+      </div>
+    </div>
+    <div class="grid grid-3">
+      <div class="card"><span class="tag">Sport</span><h3>Baobab retains the Sports Day trophy</h3><p>A strong 4x100m relay in the final event sealed the win for the second year running.</p></div>
+      <div class="card"><span class="tag">Academics</span><h3>Grade 12 mock results published</h3><p>Form tutors will discuss individual results at the November parent-teacher conferences.</p></div>
+      <div class="card"><span class="tag">Facilities</span><h3>Computer lab upgraded to 40 seats</h3><p>The Computing department has added ten new workstations ahead of this year's coding club intake.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" style="margin-bottom:14px;">
+          <span class="brand-mark">NH</span>
+          <span class="brand-text" style="color:#fff;">NEW HEAVEN<span>SECONDARY SCHOOL</span></span>
+        </a>
+        <p>A day-boarding secondary school for grades 6&ndash;12, built around a working campus of fields, courts and workshops rather than a single block of classrooms.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="{% url "index" %}">Home</a></li>
+          <li><a href="{% url "about" %}">About us</a></li>
+          <li><a href="{% url "academics" %}">Academics</a></li>
+          <li><a href="{% url "admissions" %}">Admissions</a></li>
+          {% comment %} <li><a href="{% url "faculty" %}">Faculty &amp; staff</a></li> {% endcomment %}
+        </ul>
+      </div>
+      <div>
+        <h4>Campus life</h4>
+        <ul>
+          <li><a href="{% url "contact" %}">Contact</a></li>
+          {% comment %} <li><a href="facilities.html">Facilities</a></li>
+          <li><a href="sports.html">Sports</a></li>
+          <li><a href="student-life.html">Student life</a></li>
+          <li><a href="gallery.html">Gallery</a></li> {% endcomment %}
+          <li><a href="{% url "events" %}">News &amp; events</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Visit us</h4>
+        <ul>
+          <li>14 Ridgeline Road, Owerri</li>
+          <li>Imo State, Nigeria</li>
+          <li><a href="tel:+2340000000">+234 000 000 0000</a></li>
+          <li><a href="mailto:admissions@newheaven.edu">admissions@suryodayavalley.edu</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 New Heaven Secondary School.</span>
+      <span><a href="faq.html">FAQ</a> &middot; <a href="contact.html">Contact</a></span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

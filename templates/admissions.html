@@ -1,0 +1,187 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admissions · New Heaven Secondary School</title>
+<meta name="description" content="How to apply to New Heaven Secondary School: entry points, timeline, fees and the application form.">
+<link rel="stylesheet" href="{% static '/css/style.css' %}">
+</head>
+<body>
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">NH</span>
+      <span class="brand-text">New Heaven<span>SECONDARY SCHOOL</span></span>
+    </a>
+    <ul class="main-nav">
+            <li><a href="{% url "index" %}">Home</a></li>
+<li><a href="{% url "about" %}">About Us</a></li>
+<li><a href="{% url "academics" %}">Academics</a></li>
+<li><a href="{% url "admissions" %}" aria-current="page">Admissions</a></li>
+<li><a href="{% url "events" %}">News & Events</a></li>
+<li><a href="{% url "contact" %}">Contact</a></li>
+
+
+    </ul>
+    <a class="btn nav-cta" href="{% url "apply" %}  ">Apply now</a>
+  </div>
+</header>
+
+
+<section class="page-head">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Admissions</div>
+    <span class="kicker">Joining the school</span>
+    <h1>210 places a year, across two entry points</h1>
+    <p>Most students join in Grade 6. A smaller number of places open for lateral entry into Grades 7&ndash;9, subject to space in that year group.</p>
+    <div class="hero-actions">
+      {% comment %} <a class="btn btn-primary" href="{% url "apply" %}">Start your application</a> {% endcomment %}
+      {% comment %} <a class="btn btn-outline" href="contact.html">Book a campus tour</a> {% endcomment %}
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="kicker">Timeline</span>
+        <h2>How the process runs</h2>
+      </div>
+    </div>
+    <ol class="steps">
+      <li><h3>October: applications open</h3><p>Submit the form below along with the student's most recent two terms of school reports.</p></li>
+      <li><h3>November: entrance assessment</h3><p>A half-day written assessment in English and Mathematics, held on campus on a Saturday.</p></li>
+      <li><h3>Early December: family interview</h3><p>A short conversation with the student and a parent or guardian, with the relevant Head of Year.</p></li>
+      <li><h3>Mid-December: offers issued</h3><p>Offers are sent by email and post, with two weeks to accept and pay the confirmation deposit.</p></li>
+      <li><h3>January: induction day</h3><p>New students spend a morning meeting their form tutor and touring the campus before term starts.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section-alt">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="kicker">Costs</span>
+        <h2>Fees and what they cover</h2>
+      </div>
+    </div>
+    <table>
+      <thead><tr><th>Item</th><th>Grades 6&ndash;8</th><th>Grades 9&ndash;11</th></tr></thead>
+      <tbody>
+        <tr><td>Termly tuition</td><td>&#8358;185,000</td><td>&#8358;225,000</td></tr>
+        <tr><td>Registration (one-time)</td><td>&#8358;40,000</td><td>&#8358;40,000</td></tr>
+        <tr><td>Confirmation deposit</td><td>&#8358;50,000</td><td>&#8358;50,000</td></tr>
+        <tr><td>Books, sports kit &amp; ID</td><td>&#8358;35,000 / year</td><td>&#8358;35,000 / year</td></tr>
+      </tbody>
+    </table>
+    <p class="small">Fees cover tuition, use of the library, labs and sports facilities, and one termly report card. Meals and transport are billed separately; details are given at the family interview.</p>
+  </div>
+</section>
+
+<section id="apply-form">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="kicker">Get started</span>
+        <h2>Request an application pack</h2>
+      </div>
+    </div>
+    <form class="form-grid" onsubmit="return false;">
+      <div>
+        <label for="student-name">Student's full name</label>
+        <input id="student-name" type="text" name="student-name" required>
+      </div>
+      <div>
+        <label for="dob">Date of birth</label>
+        <input id="dob" type="date" name="dob" required>
+      </div>
+      <div>
+        <label for="grade">Entry grade</label>
+        <select id="grade" name="grade">
+          <option>Grade 6</option>
+          <option>Grade 7</option>
+          <option>Grade 8</option>
+          <option>Grade 9</option>
+          <option>Grade 10</option>
+          <option>Grade 11</option>
+        
+        </select>
+      </div>
+      <div>
+        <label for="parent-name">Parent / guardian name</label>
+        <input id="parent-name" type="text" name="parent-name" required>
+      </div>
+      <div>
+        <label for="email">Email address</label>
+        <input id="email" type="email" name="email" required>
+      </div>
+      <div>
+        <label for="phone">Phone number</label>
+        <input id="phone" type="tel" name="phone" required>
+      </div>
+      <div class="full">
+        <label for="notes">Anything we should know?</label>
+        <textarea id="notes" name="notes" placeholder="Current school, learning support needs, or questions for the admissions team"></textarea>
+      </div>
+      <div class="full">
+        {% comment %} <button class="btn btn-primary" href="{% url "apply" %}">Request the application pack</button> {% endcomment %}
+        <a class="btn btn-primary" href="{% url "apply" %}">Start your application</a>
+      </div>
+    </form>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" style="margin-bottom:14px;">
+          <span class="brand-mark">NH</span>
+          <span class="brand-text" style="color:#fff;">New Heaven<span>SECONDARY SCHOOL</span></span>
+        </a>
+        <p>A day-boarding secondary school for grades 6&ndash;11, built around a working campus of fields, courts and workshops rather than a single block of classrooms.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="{% url "index" %}">Home</a></li>
+          <li><a href="{% url "about" %}">About us</a></li>
+          <li><a href="{% url "academics" %}">Academics</a></li>
+          <li><a href="{% url "admissions" %}">Admissions</a></li>
+          {% comment %} <li><a href="faculty.html">Faculty &amp; staff</a></li> {% endcomment %}
+        </ul>
+      </div>
+      <div>
+        <h4>Campus life</h4>
+        <ul>
+          <li><a href="{% url "contact" %}">Contact</a></li>
+          {% comment %} <li><a href="facilities.html">Facilities</a></li>
+          <li><a href="sports.html">Sports</a></li>
+          <li><a href="student-life.html">Student life</a></li> {% endcomment %}
+          {% comment %} <li><a href="gallery.html">Gallery</a></li> {% endcomment %}
+          <li><a href="events.html">News &amp; events</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Visit us</h4>
+        <ul>
+          <li>14 Ridgeline Road, Owerri</li>
+          <li>Imo State, Nigeria</li>
+          <li><a href="tel:+2340000000">+234 000 000 0000</a></li>
+          <li><a href="mailto:admissions@newheaven.edu">admissions@newheaven.edu</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 New Heaven Secondary School.</span>
+      <span><a href="faq.html">FAQ</a> &middot; <a href="contact.html">Contact</a></span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

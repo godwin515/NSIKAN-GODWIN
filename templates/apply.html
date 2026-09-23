@@ -1,0 +1,313 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply Now · New Heaven Secondary School</title>
+<meta name="description" content="Apply to New Heaven Secondary School: student details, parent details, previous school and submission.">
+<link rel="stylesheet" href="{% static '/css/style.css' %}">
+</head>
+<body>
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">NH</span>
+      <span class="brand-text">New Heaven<span>SECONDARY SCHOOL</span></span>
+    </a>
+    <ul class="main-nav">
+           <li><a href="{% url "index" %}">Home</a></li>
+<li><a href="{% url "about" %}">About Us</a></li>
+<li><a href="{% url "academics" %}">Academics</a></li>
+<li><a href="{% url "admissions" %}">Admissions</a></li>
+<li><a href="{% url "events" %}">News & Events</a></li>
+<li><a href="{% url "contact" %}">Contact</a></li>
+
+
+    </ul>
+    <a class="btn nav-cta" href="{% url "apply" %}" aria-current="page">Apply now</a>
+  </div>
+</header>
+
+
+<section class="page-head">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / <a href="admissions.html">Admissions</a> / Apply now</div>
+    <span class="kicker">2026 intake</span>
+    <h1>Apply to New Heaven</h1>
+    <p>Fill in the four sections below. You'll get a confirmation email with your reference number as soon as it's submitted, and the admissions office will follow up within five working days.</p>
+  </div>
+</section>
+
+<section style="padding-top:44px; padding-bottom:0;">
+  <div class="container">
+    <ol class="progress-rail">
+      <li class="done"><span class="step-num">1</span>Student</li>
+      <li class="done"><span class="step-num">2</span>Parent / guardian</li>
+      <li class="current"><span class="step-num">3</span>Previous school</li>
+      <li><span class="step-num">4</span>Review &amp; submit</li>
+    </ol>
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="container">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <form action="{% url 'apply' %}" method="POST" enctype="multipart/form-data" id="apply-form">
+      {% csrf_token %}
+      
+      <!-- Student Details Section -->
+      <div class="form-section">
+        <div class="form-section-head">
+          <span class="step-tag">Section 1</span>
+          <h2>Student details</h2>
+          <p>Basic information about the student applying.</p>
+        </div>
+        <div class="form-grid">
+          <div>
+            <label for="id_first_name">First name</label>
+            {{ form.first_name }}
+            {% if form.first_name.errors %}
+              <div class="error">{{ form.first_name.errors }}</div>
+            {% endif %}
+          </div>
+          <div>
+            <label for="id_last_name">Last name</label>
+            {{ form.last_name }}
+            {% if form.last_name.errors %}
+              <div class="error">{{ form.last_name.errors }}</div>
+            {% endif %}
+          </div>
+          <div>
+            <label for="id_date_of_birth">Date of birth</label>
+            {{ form.date_of_birth }}
+            {% if form.date_of_birth.errors %}
+              <div class="error">{{ form.date_of_birth.errors }}</div>
+            {% endif %}
+          </div>
+          <div>
+            <label for="id_gender">Gender</label>
+            {{ form.gender }}
+            {% if form.gender.errors %}
+              <div class="error">{{ form.gender.errors }}</div>
+            {% endif %}
+          </div>
+          <div class="full">
+            <label>Entry grade</label>
+            <div class="radio-row">
+              {{ form.entry_grade }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parent Details Section -->
+      <div class="form-section">
+        <div class="form-section-head">
+          <span class="step-tag">Section 2</span>
+          <h2>Parent / guardian details</h2>
+          <p>Primary contact for admissions correspondence and the family interview.</p>
+        </div>
+        <div class="form-grid">
+          <div>
+            <label for="id_parent_name">Full name</label>
+            {{ form.parent_name }}
+          </div>
+          <div>
+            <label for="id_relationship">Relationship to student</label>
+            {{ form.relationship }}
+          </div>
+          <div>
+            <label for="id_parent_email">Email address</label>
+            {{ form.parent_email }}
+          </div>
+          <div>
+            <label for="id_parent_phone">Phone number</label>
+            {{ form.parent_phone }}
+          </div>
+          <div class="full">
+            <label for="id_home_address">Home address</label>
+            {{ form.home_address }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Previous School Section -->
+      <div class="form-section">
+        <div class="form-section-head">
+          <span class="step-tag">Section 3</span>
+          <h2>Previous school</h2>
+          <p>We'll request a reference directly once your application is reviewed.</p>
+        </div>
+        <div class="form-grid">
+          <div>
+            <label for="id_previous_school">Current / most recent school</label>
+            {{ form.previous_school }}
+          </div>
+          <div>
+            <label for="id_current_grade">Current grade or class</label>
+            {{ form.current_grade }}
+          </div>
+          <div class="full">
+            <label>Upload most recent report card (PDF)</label>
+            <div class="upload-box">
+              {{ form.report_card }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review & Submit Section -->
+      <div class="form-section">
+        <div class="form-section-head">
+          <span class="step-tag">Section 4</span>
+          <h2>Review &amp; submit</h2>
+          <p>Double-check the sections above, then confirm the details below.</p>
+        </div>
+        <div class="check-row" style="margin-bottom:14px;">
+          {{ form.confirm_accurate }}
+          <label for="id_confirm_accurate">I confirm the information given in this application is accurate to the best of my knowledge.</label>
+        </div>
+        <div class="check-row" style="margin-bottom:26px;">
+          {{ form.confirm_policy }}
+          <label for="id_confirm_policy">I have read the admissions policy and understand the ₦40,000 registration fee is non-refundable.</label>
+        </div>
+        <div class="form-actions">
+          <a class="btn btn-dark" href="{% url 'admissions' %}">Back to admissions overview</a>
+          <button class="btn btn-primary" type="submit">Submit application</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</section>
+
+<section class="section-alt">
+  <div class="container">
+    <div class="grid grid-2">
+      <div>
+        <h2>What happens next</h2>
+        <p>You'll receive an emailed reference number immediately, followed by an entrance-assessment date within five working days. The full timeline is on the <a href="admissions.html">Admissions</a> page.</p>
+      </div>
+      <div>
+        <h2>Need help with the form?</h2>
+        <p>Email <a href="mailto:admissions@newheaven.edu">admissions@newheaven.edu</a> or call the school office &mdash; details are on the <a href="contact.html">Contact</a> page.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" style="margin-bottom:14px;">
+          <span class="brand-mark">NH</span>
+          <span class="brand-text" style="color:#fff;">New Heaven<span>SECONDARY SCHOOL</span></span>
+        </a>
+        <p>A day-boarding secondary school for grades 6&ndash;12, built around a working campus of fields, courts and workshops rather than a single block of classrooms.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="{% url "index" %}">Home</a></li>
+          <li><a href="{% url "about" %}">About us</a></li>
+          <li><a href="{% url "academics" %}">Academics</a></li>
+          <li><a href="{% url "admissions" %}">Admissions</a></li>
+          {% comment %} <li><a href="{% url "faculty" %}">Faculty &amp; staff</a></li> {% endcomment %}
+        </ul>
+      </div>
+      <div>
+        <h4>Campus life</h4>
+        <ul>
+          <li><a href="{% url "contact" %}">Contact</a></li>
+          {% comment %} <li><a href="facilities.html">Facilities</a></li> {% endcomment %}
+          {% comment %} <li><a href="sports.html">Sports</a></li> {% endcomment %}
+          {% comment %} <li><a href="student-life.html">Student life</a></li> {% endcomment %}
+          {% comment %} <li><a href="gallery.html">Gallery</a></li> {% endcomment %}
+          {% comment %} <li><a href="facilities.html">Facilities</a></li> {% endcomment %}
+          {% comment %} <li><a href="sports.html">Sports</a></li> {% endcomment %}
+          {% comment %} <li><a href="student-life.html">Student life</a></li> {% endcomment %}
+          {% comment %} <li><a href="gallery.html">Gallery</a></li> {% endcomment %}
+          <li><a href="{% url "events" %}">News &amp; events</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Visit us</h4>
+        <ul>
+          <li>14 Ridgeline Road, Owerri</li>
+          <li>Imo State, Nigeria</li>
+          <li><a href="tel:+2340000000">+234 000 000 0000</a></li>
+          <li><a href="mailto:admissions@suryodayavalley.edu">admissions@newheaven .edu</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 New Heaven Secondary School.</span>
+      <span><a href="faq.html">FAQ</a> &middot; <a href="contact.html">Contact</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- EmailJS: send confirmation, then let the normal Django POST go through -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+  emailjs.init({ publicKey: "lUNejxybxIwlSOQRC" });
+
+  const EMAILJS_SERVICE_ID  = "service_mokyfcp";
+  const EMAILJS_TEMPLATE_ID = "template_yg4qvn2";
+
+  const applyForm = document.getElementById("apply-form");
+  const submitBtn = applyForm.querySelector('button[type="submit"]');
+  let emailAlreadySent = false;
+
+  applyForm.addEventListener("submit", function (e) {
+    if (emailAlreadySent) return;            // second pass: let Django's real POST run
+    if (!applyForm.checkValidity()) return;  // let native/Django validation errors show
+
+    e.preventDefault();
+
+    const reference  = "NH-" + Date.now().toString().slice(-6);
+    const gradeInput = applyForm.querySelector('input[name="entry_grade"]:checked');
+
+    const templateParams = {
+      reference_number: reference,
+      student_name: document.getElementById("id_first_name").value + " " + document.getElementById("id_last_name").value,
+      entry_grade: gradeInput ? gradeInput.value : "",
+      parent_name: document.getElementById("id_parent_name").value,
+      to_email: document.getElementById("id_parent_email").value,
+      to_name: document.getElementById("id_parent_name").value,
+      phone: document.getElementById("id_parent_phone").value,
+      previous_school: document.getElementById("id_previous_school").value
+    };
+
+    if (submitBtn) submitBtn.disabled = true;
+
+    let proceeded = false;
+    function proceed() {
+      if (proceeded) return;
+      proceeded = true;
+      emailAlreadySent = true;
+      applyForm.submit();  // hands off to Django exactly as before
+    }
+
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+      .then(proceed)
+      .catch(function (error) {
+        console.error("EmailJS error:", error);
+        proceed();  // don't block the real application over a failed confirmation email
+      });
+
+    setTimeout(proceed, 4000); // safety net if EmailJS hangs
+  });
+</script>
+
+</body>
+</html>

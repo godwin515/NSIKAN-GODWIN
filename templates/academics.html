@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Academics ·New Heaven Secondary School</title>
+<meta name="description" content="The WAEC-aligned curriculum, subject combinations and weekly teaching cycle at New Heaven.">
+<link rel="stylesheet" href="{% static '/css/style.css' %}">
+</head>
+<body>
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">NH</span>
+      <span class="brand-text">New Heaven<span>SECONDARY SCHOOL</span></span>
+    </a>
+    <ul class="main-nav">
+            <li><a href="{% url "index" %}">Home</a></li>
+<li><a href="{% url "about" %}">About Us</a></li>
+<li><a href="{% url "academics" %}" aria-current="page">Academics</a></li>
+<li><a href="{% url "admissions" %}">Admissions</a></li>
+<li><a href="{% url "events" %}">News & Events</a></li>
+<li><a href="{% url "contact" %}">Contact</a></li>
+
+
+    </ul>
+    <a class="btn nav-cta" href="{% url "apply" %}">Apply now</a>
+  </div>
+</header>
+
+
+<section class="page-head">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Academics</div>
+    <span class="kicker">Curriculum</span>
+    <h1>A WAEC curriculum, taught in fixed subject blocks</h1>
+    <p>Every grade follows the same six-day teaching cycle: core subjects in the morning, electives and labs after lunch, and one afternoon a week set aside for sport and clubs.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="kicker">Core subjects</span>
+        <h2>Taught in every grade, 6 through 12</h2>
+      </div>
+    </div>
+    <div class="grid grid-4">
+      <div class="card"><h3>English Language</h3><p>Composition, comprehension and literature, with a dedicated reading period each week.</p></div>
+      <div class="card"><h3>Mathematics</h3><p>Arithmetic through calculus, streamed by ability from Grade 9 onward.</p></div>
+      <div class="card"><h3>Basic &amp; Integrated Science</h3><p>Splits into Biology, Chemistry and Physics from Grade 9.</p></div>
+      <div class="card"><h3>Social Studies</h3><p>Nigerian history, civics and geography, taught jointly through Grade 8.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-alt">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="kicker">Senior electives</span>
+        <h2>Chosen at the start of Grade 10</h2>
+      </div>
+      <p style="max-width:38ch;">Students pick a four-subject combination alongside the core, sat as their eventual WAEC papers.</p>
+    </div>
+    <table>
+      <thead><tr><th>Track</th><th>Elective subjects</th><th>Typical destination</th></tr></thead>
+      <tbody>
+        <tr><td>Sciences</td><td>Physics, Chemistry, Biology, Further Maths</td><td>Engineering, medicine, computing</td></tr>
+        <tr><td>Commercial</td><td>Accounting, Commerce, Economics, Government</td><td>Business, law, finance</td></tr>
+        <tr><td>Arts</td><td>Literature, Government, CRK/IRK, French</td><td>Humanities, journalism, education</td></tr>
+        <tr><td>Technical</td><td>Technical Drawing, Basic Electronics, Woodwork, Physics</td><td>Architecture, applied engineering</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="kicker">How the week is structured</span>
+        <h2>A six-day cycle, not a five-day week</h2>
+      </div>
+    </div>
+    <ol class="steps">
+      <li><h3>Days 1&ndash;2: core subjects</h3><p>Mathematics, English and science are taught in double periods each morning, in the same rooms in the same order across the cycle.</p></li>
+      <li><h3>Days 3&ndash;4: electives and labs</h3><p>Afternoons move to the science and computer labs, or to elective subject rooms for the senior tracks.</p></li>
+      <li><h3>Day 5: assessment and review</h3><p>Short tests, marked work returned, and form-tutor time to go over results before the weekend.</p></li>
+      <li><h3>Day 6: sport, clubs and workshops</h3><p>The full afternoon moves outdoors or into the workshop and studio spaces &mdash; see <a href="student-life.html">student life</a>.</p></li>
+    </ol>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" style="margin-bottom:14px;">
+          <span class="brand-mark">SV</span>
+          <span class="brand-text" style="color:#fff;">New Heaven<span>SECONDARY SCHOOL</span></span>
+        </a>
+        <p>A day-boarding secondary school for grades 6&ndash;12, built around a working campus of fields, courts and workshops rather than a single block of classrooms.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="{% url "index" %}">Home</a></li>
+          <li><a href="{% url "about" %}">About us</a></li>
+          <li><a href="{% url "academics" %}">Academics</a></li>
+          <li><a href="{% url "admissions" %}">Admissions</a></li>
+          {% comment %} <li><a href="{% url "faculty" %}">Faculty &amp; staff</a></li> {% endcomment %}
+        </ul>
+      </div>
+      <div>
+        <h4>Campus life</h4>
+        <ul>
+          <li><a href="{% url "contact" %}">Contact</a></li>
+          {% comment %} <li><a href="facilities.html">Facilities</a></li>
+          <li><a href="sports.html">Sports</a></li>
+          <li><a href="student-life.html">Student life</a></li>
+          <li><a href="gallery.html">Gallery</a></li> {% endcomment %}
+          <li><a href="{% url "events" %}">News &amp; events</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Visit us</h4>
+        <ul>
+          <li>14 Ridgeline Road,0werri</li>
+          <li>Imoh State, Nigeria</li>
+          <li><a href="tel:+2340000000">+234 000 000 0000</a></li>
+          <li><a href="mailto:admissions@suryodayavalley.edu">admissions@newheaven.edu</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 New Heaven Secondary School.</span>
+      <span><a href="faq.html">FAQ</a> &middot; <a href="contact.html">Contact</a></span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

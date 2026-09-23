@@ -1,0 +1,172 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us · New Heaven Secondary School</title>
+<meta name="description" content="The history, mission and leadership team of New Heaven Secondary School.">
+<link rel="stylesheet" href="{% static '/css/style.css' %}">
+</head>
+<body>
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">NH</span>
+      <span class="brand-text">New Heaven<span>SECONDARY SCHOOL</span></span>
+    </a>
+    <ul class="main-nav">
+            <li><a href="{% url "index" %}">Home</a></li>
+<li><a href="{% url "about" %}" aria-current="page">About Us</a></li>
+<li><a href="{% url "academics" %}">Academics</a></li>
+<li><a href="{% url "admissions" %}">Admissions</a></li>
+<li><a href="{% url "events" %}">News & Events</a></li>
+<li><a href="{% url "contact" %}">Contact</a></li>
+
+
+    </ul>
+    <a class="btn nav-cta" href="{% url "apply" %}">Apply now</a>
+  </div>
+</header>
+
+
+<section class="page-head">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / About us</div>
+    <span class="kicker">Our story</span>
+    <h1>Built as a campus, not a building</h1>
+    <p>New Heaven opened in 2015 with two classroom blocks and a dirt football field. The playing fields came before most of the current classrooms did &mdash; a sequencing choice the school has kept ever since.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="grid grid-2">
+      <div>
+        <h2>Mission</h2>
+        <p>To teach the full WAEC secondary curriculum to a high academic standard, while giving every student regular, structured time on a sports field, in a workshop, or in front of an audience &mdash; not as enrichment, but as timetabled coursework.</p>
+      </div>
+      <div>
+        <h2>Vision</h2>
+        <p>A school leaver who can defend an argument in an exam hall, hold a position on a football pitch, and finish something they started in a workshop or lab, without treating any of the three as the "extra" one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-alt">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="kicker">How we're organised</span>
+        <h2>Three phases across grades 6&ndash;11</h2>
+      </div>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <span class="tag">Grades 6&ndash;7</span>
+        <h3>Foundation years</h3>
+        <p>Form tutors teach across most subjects, homework is set on a fixed weekly rhythm, and PE happens in the junior play yard rather than the senior ground.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Grades 7&ndash;9</span>
+        <h3>Junior secondary</h3>
+        <p>Subject specialists take over, science moves into the labs, and students choose their first elective &mdash; a language, a craft, or an instrument.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Grades 9&ndash;11</span>
+        <h3>Senior secondary</h3>
+        <p>Students select a WAEC subject combination, sit mock exams each term, and take on a leadership role &mdash; prefect, team captain, or club lead.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="kicker">Leadership</span>
+        <h2>Who runs the school</h2>
+      </div>
+    </div>
+    <div class="grid grid-4">
+      <div class="person">
+        <div class="avatar">AO</div>
+        <h3>Adaeze Okonkwo</h3>
+        <span class="role">Principal</span>
+        <p>18 years in secondary education; joined as vice-principal in 2018.</p>
+      </div>
+      <div class="person">
+        <div class="avatar">CN</div>
+        <h3>Chidi Nwosu</h3>
+        <span class="role">Vice-Principal, Academics</span>
+        <p>Oversees the WAEC curriculum and exam calendar.</p>
+      </div>
+      <div class="person">
+        <div class="avatar">FE</div>
+        <h3>Funmi Eze</h3>
+        <span class="role">Head of Pastoral Care</span>
+        <p>Runs the form-tutor system and student welfare.</p>
+      </div>
+      <div class="person">
+        <div class="avatar">TB</div>
+        <h3>Tunde Balogun</h3>
+        <span class="role">Director of Sport</span>
+        <p>Coordinates PE, fixtures and the athletics programme.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" style="margin-bottom:14px;">
+          <span class="brand-mark">NH</span>
+          <span class="brand-text" style="color:#fff;">New Heaven<span>SECONDARY SCHOOL</span></span>
+        </a>
+        <p>A day-boarding secondary school for grades 6&ndash;11, built around a working campus of fields, courts and workshops rather than a single block of classrooms.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="{% url "index" %}">Home</a></li>
+          <li><a href="{% url "about" %}">About us</a></li>
+          <li><a href="{% url "academics" %}">Academics</a></li>
+          <li><a href="{% url "admissions" %}">Admissions</a></li>
+          {% comment %} <li><a href="{% url "faculty" %}">Faculty &amp; staff</a></li> {% endcomment %}
+        </ul>
+      </div>
+      <div>
+        <h4>Campus life</h4>
+        <ul>
+          <li><a href="{% url "contact" %}">Contact</a></li>
+          {% comment %} <li><a href="facilities.html">Facilities</a></li> {% endcomment %}
+          {% comment %} <li><a href="sports.html">Sports</a></li> {% endcomment %}
+          {% comment %} <li><a href="student-life.html">Student life</a></li>
+          <li><a href="gallery.html">Gallery</a></li> {% endcomment %}
+          <li><a href="{% url "events" %}">News &amp; events</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Visit us</h4>
+        <ul>
+          <li>14 Ridgeline Road, Owerri</li>
+          <li>Imo State, Nigeria</li>
+          <li><a href="tel:+2340000000">+234 000 000 0000</a></li>
+          <li><a href="mailto:admissions@suryodayavalley.edu">admissions@newheaven.edu</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 New Heaven Secondary School.</span>
+      <span><a href="faq.html">FAQ</a> &middot; <a href="contact.html">Contact</a></span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
