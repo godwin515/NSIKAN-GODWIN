@@ -91,6 +91,13 @@
     padding: 6px 0;
     border-bottom: 1px solid rgba(0,0,0,0.05);
   }
+   .sidebar ul li a:hover {
+    color: var(--gold);
+  }
+   .sidebar ul li a.active {
+    color: var(--gold);
+    border-color: var(--gold);
+  }
   .sidebar .btn {
     margin-top: 8px;
     text-align: center;
@@ -168,7 +175,7 @@
 <aside class="sidebar" id="sidebar">
   <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">&times;</button>
   <ul>
-    <li><a href="{% url "index" %}">Home</a></li>
+    <li><a href="{% url "index" %}" class="active">Home</a></li>
     <li><a href="{% url "about" %}">About Us</a></li>
     <li><a href="{% url "academics" %}">Academics</a></li>
     <li><a href="{% url "admissions" %}">Admissions</a></li>

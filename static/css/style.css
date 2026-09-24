@@ -121,9 +121,7 @@ img{ max-width: 100%; display: block; }
   padding: 0;
   font-size: 0.93rem;
 }
-.sidebar {
-  display: none !important;
-}
+
 
 .main-nav a{
   text-decoration: none;
