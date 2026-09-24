@@ -140,3 +140,7 @@ def test_email(request):
         return HttpResponse("✅ Email sent successfully! Check your inbox.")
     except Exception as e:
         return HttpResponse(f"❌ Email failed: {str(e)}")
+    
+    
+   
+

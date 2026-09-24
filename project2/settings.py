@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'schoolweb'
+    'schoolweb',
 ]
 
 MIDDLEWARE = [
@@ -134,7 +134,7 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 # Media files configuration
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Email configuration (use a real email backend in production)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

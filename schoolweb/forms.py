@@ -60,3 +60,6 @@ class StudentApplicationForm(forms.ModelForm):
         if not cleaned_data.get('confirm_policy'):
             raise ValidationError('You must read and accept the admissions policy.')
         return cleaned_data
+    
+   
+
