@@ -1,7 +1,10 @@
 # forms.py
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import StudentApplication
+from .models import StudentApplication, StudentProfile, Result
+from django.contrib.auth import authenticate, get_user_model
+
+User = get_user_model()
 
 class StudentApplicationForm(forms.ModelForm):
     class Meta:
@@ -61,5 +64,79 @@ class StudentApplicationForm(forms.ModelForm):
             raise ValidationError('You must read and accept the admissions policy.')
         return cleaned_data
     
-   
 
+
+class StudentLoginForm(forms.Form):
+    identifier = forms.CharField(
+        label='Admission Number / Username / Email',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'e.g. NH/2026/001',
+            'autocomplete': 'username',
+            'autofocus': True,
+        })
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Your password',
+            'autocomplete': 'current-password',
+        })
+    )
+    remember_me = forms.BooleanField(required=False)
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super().__init__(*args, **kwargs)
+        self.user = None
+
+    def clean(self):
+        cleaned = super().clean()
+        identifier = (cleaned.get('identifier') or '').strip()
+        password = cleaned.get('password')
+
+        if identifier and password:
+            username = identifier
+
+            # 1) Try admission number
+            profile = StudentProfile.objects.filter(
+                admission_number__iexact=identifier
+            ).select_related('user').first()
+            if profile:
+                username = profile.user.username
+            # 2) Try email
+            elif '@' in identifier:
+                try:
+                    u = User.objects.get(email__iexact=identifier)
+                    username = u.username
+                except User.DoesNotExist:
+                    pass
+
+            self.user = authenticate(self.request, username=username, password=password)
+
+            if self.user is None:
+                raise forms.ValidationError(
+                    "Invalid credentials. Check your admission number and password."
+                )
+            if not self.user.is_active:
+                raise forms.ValidationError(
+                    "This account is disabled. Contact the school office."
+                )
+            if not hasattr(self.user, 'student_profile'):
+                raise forms.ValidationError(
+                    "This account is not a student account."
+                )
+        return cleaned
+
+
+class ResultLookupForm(forms.Form):
+    session = forms.ChoiceField(required=False)
+    term = forms.ChoiceField(
+        required=False,
+        choices=[('', 'All terms')] + Result.TERM_CHOICES,
+    )
+
+    def __init__(self, *args, session_choices=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        choices = [('', 'All sessions')]
+        if session_choices:
+            choices += [(s, s) for s in session_choices]
+        self.fields['session'].choices = choices

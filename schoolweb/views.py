@@ -3,8 +3,11 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
 from django.urls import reverse
-from .forms import StudentApplicationForm
-from .models import StudentApplication
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
+from .forms import StudentApplicationForm, StudentLoginForm, ResultLookupForm
+from .models import StudentApplication, Result
 from django.http import HttpResponse
 
 
@@ -142,5 +145,138 @@ def test_email(request):
         return HttpResponse(f"❌ Email failed: {str(e)}")
     
     
-   
 
+
+   
+def _student_required(view):
+    """Only logged-in users with a student_profile."""
+    @login_required(login_url='student_login')
+    def wrapper(request, *args, **kwargs):
+        if not hasattr(request.user, 'student_profile'):
+            messages.error(request, "This page is for students only.")
+            return redirect('student_login')
+        return view(request, *args, **kwargs)
+    return wrapper
+
+
+@require_http_methods(["GET", "POST"])
+def student_login(request):
+    if request.user.is_authenticated and hasattr(request.user, 'student_profile'):
+        return redirect('student_dashboard')
+
+    next_url = request.GET.get('next', request.POST.get('next', ''))
+
+    if request.method == 'POST':
+        form = StudentLoginForm(request.POST, request=request)
+        if form.is_valid():
+            user = form.user
+            login(request, user)
+            if not form.cleaned_data.get('remember_me'):
+                request.session.set_expiry(0)
+            messages.success(
+                request,
+                f"Welcome back, {user.first_name or user.username}!"
+            )
+            if next_url and next_url.startswith('/'):
+                return redirect(next_url)
+            return redirect('student_dashboard')
+    else:
+        form = StudentLoginForm(request=request)
+
+    return render(request, 'students/login.html', {'form': form, 'next': next_url})
+
+
+def student_logout(request):
+    logout(request)
+    messages.info(request, "You have been logged out.")
+    return redirect('student_login')
+
+
+@_student_required
+def student_dashboard(request):
+    profile = request.user.student_profile
+
+    sessions = (Result.objects
+                .filter(student=profile)
+                .values_list('session', flat=True)
+                .distinct()
+                .order_by('-session'))
+
+    session_filter = request.GET.get('session', '').strip()
+    term_filter = request.GET.get('term', '').strip()
+
+    qs = Result.objects.filter(student=profile).select_related('subject')
+    if session_filter:
+        qs = qs.filter(session=session_filter)
+    if term_filter:
+        qs = qs.filter(term=term_filter)
+
+    results = list(qs)
+
+    stats = {
+        'count': len(results),
+        'total': sum(r.total for r in results) if results else 0,
+        'average': (sum(r.total for r in results) / len(results)) if results else 0,
+    }
+
+    lookup_form = ResultLookupForm(
+        initial={'session': session_filter, 'term': term_filter},
+        session_choices=list(sessions),
+    )
+
+    return render(request, 'students/dashboard.html', {
+        'profile': profile,
+        'results': results,
+        'stats': stats,
+        'sessions': sessions,
+        'session_filter': session_filter,
+        'term_filter': term_filter,
+        'lookup_form': lookup_form,
+    })
+
+
+@_student_required
+def check_result(request):
+    profile = request.user.student_profile
+
+    sessions = (Result.objects
+                .filter(student=profile)
+                .values_list('session', flat=True)
+                .distinct()
+                .order_by('-session'))
+
+    session_filter = request.GET.get('session', '').strip()
+    term_filter = request.GET.get('term', '').strip()
+
+    qs = Result.objects.filter(student=profile).select_related('subject')
+    if session_filter:
+        qs = qs.filter(session=session_filter)
+    if term_filter:
+        qs = qs.filter(term=term_filter)
+
+    results = list(qs)
+    total_score = sum(r.total for r in results) if results else 0
+    average = (total_score / len(results)) if results else 0
+
+    if average >= 75:      overall_grade = 'A'
+    elif average >= 65:    overall_grade = 'B'
+    elif average >= 55:    overall_grade = 'C'
+    elif average >= 45:    overall_grade = 'D'
+    elif average >= 40:    overall_grade = 'E'
+    else:                  overall_grade = 'F'
+
+    lookup_form = ResultLookupForm(
+        initial={'session': session_filter, 'term': term_filter},
+        session_choices=list(sessions),
+    )
+
+    return render(request, 'students/check_result.html', {
+        'profile': profile,
+        'results': results,
+        'total_score': total_score,
+        'average': round(average, 2),
+        'overall_grade': overall_grade,
+        'lookup_form': lookup_form,
+        'session_filter': session_filter,
+        'term_filter': term_filter,
+    })

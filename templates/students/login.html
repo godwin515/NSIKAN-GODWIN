@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Login · New Heaven Secondary School</title>
+<link rel="stylesheet" href="{% static '/css/style.css' %}">
+<style>
+  .auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,#f5f7fa 0%,#e8ecf1 100%);padding:40px 20px;font-family:inherit;}
+  .auth-card{width:100%;max-width:420px;background:#fff;border-radius:12px;
+    box-shadow:0 20px 50px rgba(0,0,0,.08),0 4px 12px rgba(0,0,0,.04);
+    padding:40px 36px 32px;border:1px solid rgba(0,0,0,.05);}
+  .auth-brand{display:flex;align-items:center;gap:12px;margin-bottom:26px;text-decoration:none;}
+  .auth-brand .brand-mark{display:inline-flex;align-items:center;justify-content:center;
+    width:42px;height:42px;background:#1e1e1e;color:#fff;font-weight:700;border-radius:8px;font-size:16px;}
+  .auth-brand .brand-text{font-weight:700;font-size:1.05rem;color:#1e1e1e;line-height:1.2;}
+  .auth-brand .brand-text span{display:block;font-size:.65rem;font-weight:500;
+    letter-spacing:1.5px;color:#888;margin-top:2px;}
+  .auth-card h1{font-size:1.55rem;margin:0 0 6px;color:#1e1e1e;}
+  .auth-card .subtitle{color:#6b7280;font-size:.9rem;margin:0 0 26px;}
+  .form-group{margin-bottom:16px;}
+  .form-group label{display:block;font-size:.85rem;font-weight:600;color:#374151;margin-bottom:6px;}
+  .form-group input{width:100%;padding:12px 14px;border:1.5px solid #e5e7eb;
+    border-radius:8px;font-size:.95rem;font-family:inherit;background:#fafafa;
+    transition:border-color .2s,background .2s,box-shadow .2s;box-sizing:border-box;}
+  .form-group input:focus{outline:none;border-color:#1e1e1e;background:#fff;
+    box-shadow:0 0 0 3px rgba(30,30,30,.08);}
+  .form-options{display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:22px;font-size:.85rem;}
+  .form-options label{display:flex;align-items:center;gap:6px;color:#4b5563;cursor:pointer;}
+  .form-options a{color:#1e1e1e;text-decoration:none;font-weight:500;}
+  .form-options a:hover{text-decoration:underline;}
+  .auth-btn{width:100%;padding:13px;background:#1e1e1e;color:#fff;border:none;
+    border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;
+    font-family:inherit;transition:background .2s;}
+  .auth-btn:hover{background:#000;}
+  .auth-footer{text-align:center;margin-top:20px;font-size:.85rem;color:#6b7280;}
+  .auth-footer a{color:#1e1e1e;font-weight:600;text-decoration:none;}
+  .auth-footer a:hover{text-decoration:underline;}
+  .back-home{display:block;text-align:center;margin-top:22px;font-size:.82rem;
+    color:#9ca3af;text-decoration:none;}
+  .back-home:hover{color:#1e1e1e;}
+  .error-box{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;
+    padding:12px 14px;border-radius:8px;font-size:.88rem;margin-bottom:20px;line-height:1.5;}
+  .messages-box{list-style:none;padding:0;margin:0 0 20px;}
+  .messages-box li{padding:12px 14px;border-radius:8px;font-size:.88rem;margin-bottom:8px;}
+  .messages-box li.success{background:#ecfdf5;border:1px solid #a7f3d0;color:#047857;}
+  .messages-box li.error{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;}
+  .messages-box li.info{background:#eff6ff;border:1px solid #bfdbfe;color:#1d4ed8;}
+</style>
+</head>
+<body>
+
+<main class="auth-page">
+  <div class="auth-card">
+    <a class="auth-brand" href="{% url 'index' %}">
+      <span class="brand-mark">NH</span>
+      <span class="brand-text">New Heaven<span>SECONDARY SCHOOL</span></span>
+    </a>
+
+    <h1>Student Login</h1>
+    <p class="subtitle">Sign in to view your results.</p>
+
+    {% if messages %}
+      <ul class="messages-box">
+        {% for message in messages %}<li class="{{ message.tags }}">{{ message }}</li>{% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if form.non_field_errors %}
+      <div class="error-box">
+        {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+      </div>
+    {% endif %}
+
+    <form method="post" action="{% url 'student_login' %}" novalidate>
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="{{ form.identifier.id_for_label }}">Admission Number / Username / Email</label>
+        {{ form.identifier }}
+        {% if form.identifier.errors %}
+          <div class="error-box" style="margin-top:8px;padding:8px 12px;font-size:.8rem;">{{ form.identifier.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.password.id_for_label }}">Password</label>
+        {{ form.password }}
+        {% if form.password.errors %}
+          <div class="error-box" style="margin-top:8px;padding:8px 12px;font-size:.8rem;">{{ form.password.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div class="form-options">
+        <label><input type="checkbox" name="remember_me"> Remember me</label>
+        <a href="{% url 'contact' %}">Forgot password?</a>
+      </div>
+
+      <input type="hidden" name="next" value="{{ next }}">
+      <button type="submit" class="auth-btn">Sign in</button>
+    </form>
+
+    <p class="auth-footer">
+      Don't have an account? <a href="{% url 'contact' %}">Contact the school office</a>
+    </p>
+
+    <a class="back-home" href="{% url 'index' %}">← Back to school website</a>
+  </div>
+</main>
+
+</body>
+</html>
