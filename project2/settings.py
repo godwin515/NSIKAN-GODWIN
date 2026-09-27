@@ -136,18 +136,31 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Email configuration (use a real email backend in production)
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Or your email provider
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'godwinnsikan515@gmail.com'
-EMAIL_HOST_PASSWORD = 'inqi wddo xxwj ncah'
-DEFAULT_FROM_EMAIL =  'New Heaven Admissions <godwinnsikan515@gmail.com>'
-EMAIL_TIMEOUT = 60  # Increase timeout
-
-# For debugging, add this to see email sending details
-# This will print email sending attempts to console
+# ---------------------------------------------------------------------------
+# Email configuration
+#
+# Render Free blocks outbound SMTP (ports 25/465/587), which makes Gmail
+# hang for 60+ seconds. That trips gunicorn's 30s worker timeout and causes
+# a 500 on /apply/. So we use the console backend on Render (emails print
+# to the logs) and real Gmail SMTP everywhere else (your PC).
+# ---------------------------------------------------------------------------
+import os
 import logging
-logging.getLogger('django.core.mail').setLevel(logging.DEBUG)
 
+if os.environ.get('RENDER'):
+    # Production (Render Free) — no SMTP, no hang, no timeout
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    # Local development — real Gmail SMTP
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_USER = 'godwinnsikan515@gmail.com'
+    EMAIL_HOST_PASSWORD = 'inqi wddo xxwj ncah'  # Gmail app password
+    EMAIL_TIMEOUT = 60
+
+DEFAULT_FROM_EMAIL = 'New Heaven Admissions <godwinnsikan515@gmail.com>'
+
+# Debug logging for email attempts
+logging.getLogger('django.core.mail').setLevel(logging.DEBUG)
